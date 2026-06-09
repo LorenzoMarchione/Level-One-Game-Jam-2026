@@ -16,11 +16,13 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
+        currentAmmo = stats.maxAmmo;
+        score = 0;
     }
 
     private void Update()
     {
-        HandleInput()
+        HandleInput();
     }
 
     void HandleInput()

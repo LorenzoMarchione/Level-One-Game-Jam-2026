@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7479748305982881022}
   - component: {fileID: 3270856657283812068}
   m_Layer: 0
-  m_Name: CerdoCaotico
+  m_Name: GoldenChancho
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,17 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ee514e4c27288489b30de3416cd306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CerdoVolador
-  vidaMaxima: 1
-  velocidad: 7
-  tendenciaHaciaArriba: 0.1
-  intensidadMovimientoAleatorio: 5
-  intensidadSacudida: 4
-  velocidadVariacionAleatoria: 6
+  vidaMaxima: 10
+  velocidad: 1
+  tendenciaHaciaArriba: 0.25
+  intensidadMovimientoAleatorio: 2.5
+  intensidadSacudida: 1.2
+  velocidadVariacionAleatoria: 5
   suavizadoCambioDireccion: 8
   puntosMinimos: 10
   puntosMaximos: 30
   prefabRecompensa: {fileID: 0}
-  probabilidadSoltarRecompensa: 0.3
+  probabilidadSoltarRecompensa: 0.6
   margenSuperiorEscape: 1
   margenInferiorPermitido: 0.5
 --- !u!212 &7479748305982881022
@@ -109,7 +109,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.18195976, g: 0.21081486, b: 0.8207547, a: 1}
+  m_Color: {r: 0.8584906, g: 0.7259949, b: 0.17412782, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

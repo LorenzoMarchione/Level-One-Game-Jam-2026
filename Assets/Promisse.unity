@@ -150,9 +150,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GeneradorCerdosVoladores
   tiposDeCerdos:
   - prefabCerdo: {fileID: 1106234102331071335, guid: 1e1983f8180c70d4aa0740b7049b064d, type: 3}
-    pesoAparicion: 90
+    pesoAparicion: 9
   - prefabCerdo: {fileID: 1106234102331071335, guid: acbda1284ec611b48935ab3ede34c890, type: 3}
-    pesoAparicion: 10
+    pesoAparicion: 5
+  - prefabCerdo: {fileID: 1106234102331071335, guid: 7a68b6a10ca28104f8f0e8a076f578f7, type: 3}
+    pesoAparicion: 4
+  - prefabCerdo: {fileID: -2819546220257104613, guid: cde4f897954404b4ab12f8bd4c73a195, type: 3}
+    pesoAparicion: 1
   puntosDeAparicion:
   - {fileID: 1162507083}
   - {fileID: 1946759747}

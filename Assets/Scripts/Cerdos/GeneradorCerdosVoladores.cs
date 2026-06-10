@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GeneradorCerdosVoladores : MonoBehaviour
@@ -12,6 +13,7 @@ public class GeneradorCerdosVoladores : MonoBehaviour
         [Tooltip("Peso de aparición. Mientras más alto, más probable es que aparezca.")]
         [Min(0f)] public float pesoAparicion = 1f;
     }
+    public List<CerdoVolador> cerdosVivos;
 
     [Header("Tipos de cerdos disponibles")]
     [SerializeField] private TipoCerdoGenerable[] tiposDeCerdos;
@@ -22,6 +24,10 @@ public class GeneradorCerdosVoladores : MonoBehaviour
     [Header("Tiempo entre apariciones")]
     [SerializeField] private float tiempoMinimoEntreApariciones = 1f;
     [SerializeField] private float tiempoMaximoEntreApariciones = 2.5f;
+
+    [Header("Limite de generaciones")]
+    [SerializeField] private int spawns = 0;
+    [SerializeField] private int spawnLimit = 20;
 
     private float tiempoParaProximaAparicion;
 
@@ -34,11 +40,16 @@ public class GeneradorCerdosVoladores : MonoBehaviour
     {
         tiempoParaProximaAparicion -= Time.deltaTime;
 
-        if (tiempoParaProximaAparicion <= 0f)
+        if (tiempoParaProximaAparicion <= 0f && spawns < spawnLimit)
         {
             CrearCerdoVolador();
             ProgramarProximaAparicion();
         }
+        if (spawns >= spawnLimit && cerdosVivos.Count == 0)
+        {
+            Debug.Log("Fin del juego");
+        }
+        cerdosVivos.RemoveAll(CerdoVolador => CerdoVolador == null);
     }
 
     private void CrearCerdoVolador()
@@ -63,13 +74,13 @@ public class GeneradorCerdosVoladores : MonoBehaviour
         Vector3 posicionAparicion = puntoElegido.position;
         posicionAparicion.z = 0f;
 
-        Instantiate(
+        cerdosVivos.Add(Instantiate(
             prefabElegido,
             posicionAparicion,
             Quaternion.identity
-        );
+        ));
+        spawns++;
     }
-
     private CerdoVolador ElegirPrefabCerdo()
     {
         if (tiposDeCerdos == null || tiposDeCerdos.Length == 0)
@@ -116,7 +127,6 @@ public class GeneradorCerdosVoladores : MonoBehaviour
 
         return null;
     }
-
     private void ProgramarProximaAparicion()
     {
         tiempoParaProximaAparicion = UnityEngine.Random.Range(

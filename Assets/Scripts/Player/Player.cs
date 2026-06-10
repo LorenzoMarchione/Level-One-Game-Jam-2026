@@ -1,15 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
+    public LayerMask pigLayer;
+    public Transform mousePosition;
+    public Crosshair crosshair;
+    public Animator anim;
+
     // Stats
     public PlayerStats stats;
 
     // Estado actual
     public int currentAmmo;
-    public int score;
-
     private float nextShotTime;
     private bool isReloading;
 
@@ -17,7 +21,6 @@ public class Player : MonoBehaviour
     {
         Cursor.visible = false;
         currentAmmo = stats.maxAmmo;
-        score = 0;
     }
 
     private void Update()
@@ -49,12 +52,34 @@ public class Player : MonoBehaviour
         if (currentAmmo <= 0)
         {
             Debug.Log("No bullets");
+            StartReload();
             return;
         }
-
+        anim.Play("Shot");
         currentAmmo --;
         nextShotTime = Time.time + (1f / stats.fireRate);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(mousePosition.position, stats.hitRadius, pigLayer);
+        foreach(Collider2D hit in hits) 
+        {
+            if (hit != null)
+            {
+                CerdoVolador pig = hit.GetComponent<CerdoVolador>();
+                if (pig != null)
+                {
+                    pig.RecibirDisparo(stats.damage);
+                }
+            }
+        }
+
+
         Debug.Log("Shot");
+    }
+
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(mousePosition.position, stats.hitRadius);
     }
 
     void StartReload()
@@ -77,14 +102,6 @@ public class Player : MonoBehaviour
         isReloading = false;
         Debug.Log("Full reload");
     }
-
-    public void AddScore(int points)
-    {
-        score += Mathf.RoundToInt(points * stats.scoreMultiplier);
-    }
-
-
-
 
 }
 

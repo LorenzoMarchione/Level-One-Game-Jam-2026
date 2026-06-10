@@ -56,7 +56,7 @@ public class CerdoVolador : MonoBehaviour
     private float limiteInferior;
     private float limiteSuperior;
 
-    private bool yaFinalizo;
+    public bool yaFinalizo;
 
     private float semillaAleatoriaX;
     private float semillaAleatoriaY;
@@ -204,12 +204,16 @@ public class CerdoVolador : MonoBehaviour
 
         int puntosOtorgados = UnityEngine.Random.Range(puntosMinimos, puntosMaximos + 1);
 
+        GameManager.Instance?.RegistrarCerdoCazado();
+
+        ScoreManager.Instance.AgregarPuntos(puntosOtorgados);
+
+
         IntentarSoltarRecompensa();
 
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo fue derribado.
         AlSerDerribado?.Invoke(this, puntosOtorgados);
-
         Destroy(gameObject);
     }
 
@@ -217,10 +221,10 @@ public class CerdoVolador : MonoBehaviour
     {
         yaFinalizo = true;
 
+        GameManager.Instance?.RegistrarCerdoEscapado();
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo escapó.
         AlEscapar?.Invoke(this);
-
         Destroy(gameObject);
     }
 
@@ -249,4 +253,5 @@ public class CerdoVolador : MonoBehaviour
 
         transform.localScale = escalaOriginal;
     }
+
 }

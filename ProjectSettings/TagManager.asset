@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Button
+    uniqueID: 3994411705
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []

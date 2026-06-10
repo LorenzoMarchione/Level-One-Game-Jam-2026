@@ -14,8 +14,6 @@ public class Player : MonoBehaviour
 
     // Estado actual
     public int currentAmmo;
-    public int score;
-
     private float nextShotTime;
     private bool isReloading;
 
@@ -23,7 +21,6 @@ public class Player : MonoBehaviour
     {
         Cursor.visible = false;
         currentAmmo = stats.maxAmmo;
-        score = 0;
     }
 
     private void Update()
@@ -105,14 +102,6 @@ public class Player : MonoBehaviour
         isReloading = false;
         Debug.Log("Full reload");
     }
-
-    public void AddScore(int points)
-    {
-        score += Mathf.RoundToInt(points * stats.scoreMultiplier);
-    }
-
-
-
 
 }
 

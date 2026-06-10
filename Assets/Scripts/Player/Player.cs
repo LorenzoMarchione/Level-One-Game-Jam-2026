@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public LayerMask pigLayer;
     public Transform mousePosition;
+    public Crosshair crosshair;
+    public Animator anim;
 
     // Stats
     public PlayerStats stats;
@@ -50,24 +52,29 @@ public class Player : MonoBehaviour
         if (currentAmmo <= 0)
         {
             Debug.Log("No bullets");
+            StartReload();
             return;
         }
-
+        anim.Play("Shot");
         currentAmmo --;
         nextShotTime = Time.time + (1f / stats.fireRate);
-        Collider2D hit = Physics2D.OverlapCircle(mousePosition.position, stats.hitRadius, pigLayer);
-
-        if (hit != null)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(mousePosition.position, stats.hitRadius, pigLayer);
+        foreach(Collider2D hit in hits) 
         {
-            CerdoVolador pig = hit.GetComponent<CerdoVolador>();
-            if (pig != null)
+            if (hit != null)
             {
-                pig.RecibirDisparo(stats.damage);
+                CerdoVolador pig = hit.GetComponent<CerdoVolador>();
+                if (pig != null)
+                {
+                    pig.RecibirDisparo(stats.damage);
+                }
             }
         }
 
+
         Debug.Log("Shot");
     }
+
 
     public void OnDrawGizmosSelected()
     {

@@ -28,7 +28,7 @@ public class Crosshair : MonoBehaviour
         }
     }
 
-    private IEnumerator ShootEffect()
+    public IEnumerator ShootEffect()
     {
         transform.localScale = originalScale * 1.2f;
         yield return new WaitForSeconds(0.05f);

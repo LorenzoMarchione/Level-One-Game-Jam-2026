@@ -37,6 +37,8 @@ public class CerdoVolador : MonoBehaviour
     [SerializeField] private float margenSuperiorEscape = 1f;
     [SerializeField] private float margenInferiorPermitido = 0.5f;
 
+    public GeneradorCerdosVoladores generador;
+
     // EVENTO PARA OTROS SCRIPTS:
     // Se ejecuta cuando el cerdo es derribado.
     public event Action<CerdoVolador, int> AlSerDerribado;
@@ -56,7 +58,7 @@ public class CerdoVolador : MonoBehaviour
     private float limiteInferior;
     private float limiteSuperior;
 
-    private bool yaFinalizo;
+    public bool yaFinalizo;
 
     private float semillaAleatoriaX;
     private float semillaAleatoriaY;
@@ -209,7 +211,6 @@ public class CerdoVolador : MonoBehaviour
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo fue derribado.
         AlSerDerribado?.Invoke(this, puntosOtorgados);
-
         Destroy(gameObject);
     }
 
@@ -220,7 +221,6 @@ public class CerdoVolador : MonoBehaviour
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo escapó.
         AlEscapar?.Invoke(this);
-
         Destroy(gameObject);
     }
 

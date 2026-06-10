@@ -204,6 +204,11 @@ public class CerdoVolador : MonoBehaviour
 
         int puntosOtorgados = UnityEngine.Random.Range(puntosMinimos, puntosMaximos + 1);
 
+        GameManager.Instance?.RegistrarCerdoCazado();
+
+        ScoreManager.Instance.AgregarPuntos(puntosOtorgados);
+
+
         IntentarSoltarRecompensa();
 
         // AVISO PARA OTROS SCRIPTS:
@@ -217,6 +222,7 @@ public class CerdoVolador : MonoBehaviour
     {
         yaFinalizo = true;
 
+        GameManager.Instance?.RegistrarCerdoEscapado();
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo escapó.
         AlEscapar?.Invoke(this);
@@ -249,4 +255,5 @@ public class CerdoVolador : MonoBehaviour
 
         transform.localScale = escalaOriginal;
     }
+
 }

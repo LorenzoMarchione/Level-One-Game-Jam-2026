@@ -49,11 +49,7 @@ public class GeneradorCerdosVoladores : MonoBehaviour
         {
             Debug.Log("Fin del juego");
         }
-        foreach (CerdoVolador cerdo in cerdosVivos)
-        {
-            if (cerdo == null)
-                cerdosVivos.Remove(cerdo);
-        }
+        cerdosVivos.RemoveAll(CerdoVolador => CerdoVolador == null);
     }
 
     private void CrearCerdoVolador()

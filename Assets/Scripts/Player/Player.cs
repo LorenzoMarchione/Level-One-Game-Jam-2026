@@ -59,7 +59,6 @@ public class Player : MonoBehaviour
             return;
         }
         anim.Play("Shot");
-        //StartCoroutine(crosshair.ShootEffect());
         currentAmmo --;
         nextShotTime = Time.time + (1f / stats.fireRate);
         Collider2D[] hits = Physics2D.OverlapCircleAll(mousePosition.position, stats.hitRadius, pigLayer);

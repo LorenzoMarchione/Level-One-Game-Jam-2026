@@ -37,8 +37,6 @@ public class CerdoVolador : MonoBehaviour
     [SerializeField] private float margenSuperiorEscape = 1f;
     [SerializeField] private float margenInferiorPermitido = 0.5f;
 
-    public GeneradorCerdosVoladores generador;
-
     // EVENTO PARA OTROS SCRIPTS:
     // Se ejecuta cuando el cerdo es derribado.
     public event Action<CerdoVolador, int> AlSerDerribado;

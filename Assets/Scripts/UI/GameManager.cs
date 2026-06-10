@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     
     [Header("Estados")]
     [SerializeField] private bool juegoTerminado = false;
-    
+    [SerializeField] private bool juegoPausado = false;
+
     // Contadores internos
     private int cerdosCazados = 0;
     private int cerdosEscapados = 0;

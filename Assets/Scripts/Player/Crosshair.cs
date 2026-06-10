@@ -21,13 +21,9 @@ public class Crosshair : MonoBehaviour
         }
         Vector2 cursorPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         transform.position = cursorPos;
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCoroutine(ShootEffect());
-        }
     }
 
-    private IEnumerator ShootEffect()
+    public IEnumerator ShootEffect()
     {
         transform.localScale = originalScale * 1.2f;
         yield return new WaitForSeconds(0.05f);

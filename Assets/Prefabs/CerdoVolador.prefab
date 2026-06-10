@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1106234102331071335}
   - component: {fileID: 7479748305982881022}
   - component: {fileID: 3270856657283812068}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CerdoVolador
   m_TagString: Untagged
   m_Icon: {fileID: 0}

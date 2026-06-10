@@ -463,10 +463,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ec7a36077694048aa50320e52ca6c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  pigLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  mousePosition: {fileID: 1165791859}
   stats:
     maxAmmo: 6
     fireRate: 0.2
     reloadTime: 1.5
+    damage: 1
+    hitRadius: 0.25
     scoreMultiplier: 1
   currentAmmo: 0
   score: 0

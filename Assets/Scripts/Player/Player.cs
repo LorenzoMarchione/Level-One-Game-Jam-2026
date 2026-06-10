@@ -1,8 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
+    public LayerMask pigLayer;
+    public Transform mousePosition;
+
     // Stats
     public PlayerStats stats;
 
@@ -51,7 +55,24 @@ public class Player : MonoBehaviour
 
         currentAmmo --;
         nextShotTime = Time.time + (1f / stats.fireRate);
+        Collider2D hit = Physics2D.OverlapCircle(mousePosition.position, stats.hitRadius, pigLayer);
+
+        if (hit != null)
+        {
+            CerdoVolador pig = hit.GetComponent<CerdoVolador>();
+            if (pig != null)
+            {
+                pig.RecibirDisparo(stats.damage);
+            }
+        }
+
         Debug.Log("Shot");
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(mousePosition.position, stats.hitRadius);
     }
 
     void StartReload()

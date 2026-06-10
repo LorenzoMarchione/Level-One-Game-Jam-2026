@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class UIButtons : MonoBehaviour
 {
     public void PlayGame()
     {
@@ -14,5 +14,15 @@ public class MainMenu : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void reset()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

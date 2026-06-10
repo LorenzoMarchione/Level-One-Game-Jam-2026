@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour
     [Header("Estados")]
     [SerializeField] private bool juegoTerminado = false;
     
-    // Contadores internos
     private int cerdosCazados = 0;
     private int cerdosEscapados = 0;
+    private int totalCerdosEnNivel = 20;
+    private bool generadorTerminado = false;
+    
     public event Action<int, int> OnContadorCazadosActualizado;     
     public event Action<int, int> OnContadorEscapadosActualizado;     
     public event Action<bool> OnJuegoTerminado;                 
@@ -36,6 +38,12 @@ public class GameManager : MonoBehaviour
     {
         OnContadorCazadosActualizado?.Invoke(cerdosCazados, cerdosRequeridos);
         OnContadorEscapadosActualizado?.Invoke(cerdosEscapados, escapesPermitidos);
+        
+        GeneradorCerdosVoladores generador = FindFirstObjectByType<GeneradorCerdosVoladores>();
+        if (generador != null)
+        {
+            totalCerdosEnNivel = generador.GetMaximoCerdos();
+        }
     }
     
     public void RegistrarCerdoCazado()
@@ -51,6 +59,8 @@ public class GameManager : MonoBehaviour
         {
             Victoria();
         }
+        
+        VerificarFinDePartida();
     }
     
     public void RegistrarCerdoEscapado()
@@ -66,17 +76,45 @@ public class GameManager : MonoBehaviour
         {
             Derrota();
         }
+        
+        VerificarFinDePartida();
     }
     
+    public void NotificarGeneradorTerminado()
+    {
+        generadorTerminado = true;
+        Debug.Log("Generador terminó de spawnear todos los cerdos");
+        VerificarFinDePartida();
+    }
+    
+    private void VerificarFinDePartida()
+    {
+        if (juegoTerminado) return;
+        
+        if (generadorTerminado)
+        {
+            int totalCerdosProcesados = cerdosCazados + cerdosEscapados;
+            
+            if (totalCerdosProcesados >= totalCerdosEnNivel)
+            {
+                if (cerdosEscapados < escapesPermitidos)
+                {
+                    Victoria();
+                }
+                else
+                {
+                    Derrota();
+                }
+            }
+        }
+    }
     private void Victoria()
     {
         if (juegoTerminado) return;
         
         juegoTerminado = true;
         OnJuegoTerminado?.Invoke(true);
-        
         DetenerGenerador();
-        
         SceneManager.LoadScene("WinScene");
     }
 
@@ -85,20 +123,17 @@ public class GameManager : MonoBehaviour
         if (juegoTerminado) return;
         
         juegoTerminado = true;
-        
         OnJuegoTerminado?.Invoke(false);
-        
         DetenerGenerador();
-        
         SceneManager.LoadScene("LoseScene");
     }
     
     private void DetenerGenerador()
     {
-        GeneradorCerdosVoladores generador = FindObjectOfType<GeneradorCerdosVoladores>();
+        GeneradorCerdosVoladores generador = FindFirstObjectByType<GeneradorCerdosVoladores>();
         if (generador != null)
         {
-            generador.enabled = false;
+            generador.DetenerGeneracion();
         }
     }
     

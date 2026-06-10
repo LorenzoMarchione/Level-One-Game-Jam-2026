@@ -30,6 +30,7 @@ public class GeneradorCerdosVoladores : MonoBehaviour
     [SerializeField] private int spawnLimit = 20;
 
     private float tiempoParaProximaAparicion;
+    private bool generacionTerminada = false;
 
     private void Start()
     {
@@ -48,6 +49,10 @@ public class GeneradorCerdosVoladores : MonoBehaviour
         if (spawns >= spawnLimit && cerdosVivos.Count == 0)
         {
             Debug.Log("Fin del juego");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.NotificarGeneradorTerminado();
+            }
         }
         cerdosVivos.RemoveAll(CerdoVolador => CerdoVolador == null);
     }
@@ -133,5 +138,12 @@ public class GeneradorCerdosVoladores : MonoBehaviour
             tiempoMinimoEntreApariciones,
             tiempoMaximoEntreApariciones
         );
+    }
+    public int GetMaximoCerdos() => spawnLimit;
+    public int GetCerdosGenerados() => spawns;
+    public void DetenerGeneracion()
+    {
+        generacionTerminada = true;
+        this.enabled = false;
     }
 }

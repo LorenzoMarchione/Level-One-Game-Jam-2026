@@ -1262,9 +1262,9 @@ MonoBehaviour:
   cerdosVivos: []
   tiposDeCerdos:
   - prefabCerdo: {fileID: 1106234102331071335, guid: 1e1983f8180c70d4aa0740b7049b064d, type: 3}
-    pesoAparicion: 0.7
+    pesoAparicion: 0.4
   - prefabCerdo: {fileID: 1106234102331071335, guid: acbda1284ec611b48935ab3ede34c890, type: 3}
-    pesoAparicion: 0.13
+    pesoAparicion: 0.3
   - prefabCerdo: {fileID: -2819546220257104613, guid: cde4f897954404b4ab12f8bd4c73a195, type: 3}
     pesoAparicion: 0.1
   - prefabCerdo: {fileID: 1106234102331071335, guid: 7a68b6a10ca28104f8f0e8a076f578f7, type: 3}
@@ -1278,7 +1278,7 @@ MonoBehaviour:
   tiempoMinimoEntreApariciones: 1
   tiempoMaximoEntreApariciones: 2.5
   spawns: 0
-  spawnLimit: 20
+  spawnLimit: 30
 --- !u!4 &1585707469
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2328e88f490c21448a007b18f60bd515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  cerdosRequeridos: 20
+  cerdosRequeridos: 30
   escapesPermitidos: 5
   juegoTerminado: 0
   juegoPausado: 0

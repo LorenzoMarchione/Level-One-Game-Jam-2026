@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4289d1008ff89428fa1bf3f8ed1cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GeneradorCerdosVoladores
+  cerdosVivos: []
   tiposDeCerdos:
   - prefabCerdo: {fileID: 1106234102331071335, guid: 1e1983f8180c70d4aa0740b7049b064d, type: 3}
     pesoAparicion: 9
@@ -163,6 +164,8 @@ MonoBehaviour:
   - {fileID: 1977024467}
   tiempoMinimoEntreApariciones: 1
   tiempoMaximoEntreApariciones: 2.5
+  spawns: 0
+  spawnLimit: 20
 --- !u!4 &408430722
 Transform:
   m_ObjectHideFlags: 0

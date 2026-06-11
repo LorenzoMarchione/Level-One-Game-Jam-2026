@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CerdoVolador
   vidaMaxima: 1
   velocidad: 2
-  tendenciaHaciaArriba: 0.35
+  tendenciaHaciaArriba: 0.5
   intensidadMovimientoAleatorio: 2.5
   intensidadSacudida: 1.2
   velocidadVariacionAleatoria: 5

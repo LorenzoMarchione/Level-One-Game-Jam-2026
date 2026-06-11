@@ -37,8 +37,9 @@ public class UIManager : MonoBehaviour
     
     private Coroutine efectoPuntuacionActual;
     private Player playerReferencia;
-    private bool efectoEnProgreso = false; 
-    
+    private bool efectoEnProgreso = false;
+    private Vector3 escalaOriginal;
+
     private void Start()
     {
         InicializarTextos();

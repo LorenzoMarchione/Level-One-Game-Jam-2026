@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Credits
+  m_text: Close
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f62aa98fd7af708409fda1f741510e69, type: 2}
   m_sharedMaterial: {fileID: 5378260777274383715, guid: f62aa98fd7af708409fda1f741510e69, type: 2}
@@ -1526,14 +1526,14 @@ MonoBehaviour:
   m_text: 'Credits
 
 
-    
+
 
     Lead Programmer and Game Design
 
     Lorenzo Marchione
     Revilla
 
-    
+
 
     Lead 2D artist.
 
@@ -1549,12 +1549,12 @@ MonoBehaviour:
 
     Nahuel Pignataro
 
-    
 
-    2D artist
-    and Sounds
 
-    Braian Cavagnero
+    2D artist and Sounds
+
+    Braian
+    Cavagnero
 
 '
   m_isRightToLeft: 0

@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public Transform mousePosition;
     public Crosshair crosshair;
     public Animator anim;
+    public AudioSource shotSound;
+    public AudioSource reloadSound;
 
     // Stats
     public PlayerStats stats;
@@ -56,6 +58,7 @@ public class Player : MonoBehaviour
             return;
         }
         anim.Play("Shot");
+        shotSound.Play();
         currentAmmo --;
         nextShotTime = Time.time + (1f / stats.fireRate);
         Collider2D[] hits = Physics2D.OverlapCircleAll(mousePosition.position, stats.hitRadius, pigLayer);
@@ -97,10 +100,12 @@ public class Player : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("Reloading...");
+        reloadSound.Play();
         yield return new WaitForSeconds(stats.reloadTime);
         currentAmmo = stats.maxAmmo;
         isReloading = false;
         Debug.Log("Full reload");
+        reloadSound.Stop();
     }
 
 }

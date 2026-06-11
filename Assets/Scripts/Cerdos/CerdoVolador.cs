@@ -57,9 +57,15 @@ public class CerdoVolador : MonoBehaviour
     private float limiteSuperior;
 
     public bool yaFinalizo;
-
+    private int numeroDeCerdo;  
+    private UIManager uiManager;
     private float semillaAleatoriaX;
     private float semillaAleatoriaY;
+
+    public void AsignarNumeroCerdo(int numero)
+    {
+        numeroDeCerdo = numero;
+    }
 
     private void Start()
     {
@@ -72,6 +78,13 @@ public class CerdoVolador : MonoBehaviour
         CalcularLimitesPantalla();
 
         direccionActual = Vector2.up;
+        
+        uiManager = FindFirstObjectByType<UIManager>();
+        
+        if (uiManager != null)
+        {
+            uiManager.OnCerdoSpawned(numeroDeCerdo);
+        }
     }
 
     private void Update()
@@ -214,6 +227,12 @@ public class CerdoVolador : MonoBehaviour
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo fue derribado.
         AlSerDerribado?.Invoke(this, puntosOtorgados);
+                
+        if (uiManager != null)
+        {
+            uiManager.MarcarCerdoComoCazado(numeroDeCerdo);
+        }
+
         Destroy(gameObject);
     }
 
@@ -225,6 +244,12 @@ public class CerdoVolador : MonoBehaviour
         // AVISO PARA OTROS SCRIPTS:
         // Acá se informa que el cerdo escapó.
         AlEscapar?.Invoke(this);
+        
+        if (uiManager != null)
+        {
+            uiManager.MarcarCerdoComoEscapado(numeroDeCerdo);
+        }
+
         Destroy(gameObject);
     }
 

@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class UIManager : MonoBehaviour
         {
             ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
         }
+
+        escalaOriginal = textoPuntuacion.transform.localScale;
     }
     private void Update()
     {

@@ -37,6 +37,9 @@ public class CerdoVolador : MonoBehaviour
     [SerializeField] private float margenSuperiorEscape = 1f;
     [SerializeField] private float margenInferiorPermitido = 0.5f;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitSound;
+
     // EVENTO PARA OTROS SCRIPTS:
     // Se ejecuta cuando el cerdo es derribado.
     public event Action<CerdoVolador, int> AlSerDerribado;
@@ -194,6 +197,17 @@ public class CerdoVolador : MonoBehaviour
     // El script que detecte el click sobre el cerdo debe llamar a este método.
     public void RecibirDisparo(int dano)
     {
+        GameObject sonido = new GameObject("HitSound");
+
+        AudioSource source = sonido.AddComponent<AudioSource>();
+        source.clip = hitSound;
+        source.volume = 1f;
+        source.spatialBlend = 0f;
+
+        source.Play();
+
+        Destroy(sonido, hitSound.length);
+
         if (yaFinalizo)
         {
             return;

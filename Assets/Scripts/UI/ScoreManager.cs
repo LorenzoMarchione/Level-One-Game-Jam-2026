@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
         
         OnPuntosAgregadosConEfecto?.Invoke(puntosFinales);
         
-        Debug.Log($"Puntos: +{puntosFinales} (Total: {puntuacionActual})");
+        Debug.Log($"+{puntosFinales} Points  (Total: {puntuacionActual})");
     }
     
     public int GetPuntuacion() => puntuacionActual;

@@ -31,6 +31,7 @@ public class GeneradorCerdosVoladores : MonoBehaviour
 
     private float tiempoParaProximaAparicion;
     private bool generacionTerminada = false;
+    private int siguienteNumeroCerdo = 0;
 
     private void Start()
     {
@@ -79,11 +80,17 @@ public class GeneradorCerdosVoladores : MonoBehaviour
         Vector3 posicionAparicion = puntoElegido.position;
         posicionAparicion.z = 0f;
 
-        cerdosVivos.Add(Instantiate(
+        CerdoVolador nuevoCerdo = Instantiate(
             prefabElegido,
             posicionAparicion,
             Quaternion.identity
-        ));
+        );
+        
+        nuevoCerdo.AsignarNumeroCerdo(siguienteNumeroCerdo);
+        siguienteNumeroCerdo++;
+        
+        cerdosVivos.Add(nuevoCerdo);
+
         spawns++;
     }
     private CerdoVolador ElegirPrefabCerdo()

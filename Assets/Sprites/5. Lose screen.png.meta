@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0c9ba2a77fb791f4591554989138a8f7
+guid: 6cccad1ce98880846974482bb7541b0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7338949278736579208
-    second: base cerditos HUD _0
+      213: 5520092720338412529
+    second: 5. Lose screen_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: base cerditos HUD _0
+      name: 5. Lose screen_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 33
-        width: 656
-        height: 102
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 88af3bf4c7f29d560800000000000000
-      internalID: 7338949278736579208
+      spriteID: 1f3adfa151f4b9c40800000000000000
+      internalID: 5520092720338412529
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      base cerditos HUD _0: 7338949278736579208
+      5. Lose screen_0: 5520092720338412529
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

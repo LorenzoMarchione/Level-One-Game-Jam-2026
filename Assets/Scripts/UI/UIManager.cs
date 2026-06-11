@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
@@ -13,7 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoMunicion;
     
     [Header("Efectos Visuales")]
-    [SerializeField] private Color colorNormalPuntuacion = Color.white;
+    [SerializeField] private Color colorNormalPuntuacion = Color.black;
     [SerializeField] private Color colorAlSumarPuntos = Color.green;
     [SerializeField] private float duracionEfectoColor = 0.3f;
     
@@ -21,15 +23,31 @@ public class UIManager : MonoBehaviour
     [SerializeField] private string WinScene = "WinScene";
     [SerializeField] private string LoseScene = "LoseScene";
     
+    [Header("Prefabs de Cerdos para el HUD")]
+    [SerializeField] private GameObject prefabCerdoNormal;
+    [SerializeField] private GameObject prefabCerdoCazado;
+    [SerializeField] private GameObject prefabCerdoEscapado;
+    
+    [Header("Contenedor")]
+    [SerializeField] private Transform contenedorCerdos;   
+    
+    private List<GameObject> ranurasCerdos = new List<GameObject>();
+    private int totalCerdos = 0;
+    private int cerdosProcesados = 0; 
+    
     private Coroutine efectoPuntuacionActual;
     private Player playerReferencia;
-
+    private bool efectoEnProgreso = false;
     private Vector3 escalaOriginal;
-    
+
     private void Start()
     {
         InicializarTextos();
         SuscribirseEventos();
+        
+        int cerdosRequeridos = GameManager.Instance != null ? 
+            GameManager.Instance.GetCerdosRequeridos() : 20;
+        CrearTodasLasRanuras(cerdosRequeridos);
         
         playerReferencia = FindFirstObjectByType<Player>();
         if (playerReferencia != null)
@@ -39,13 +57,141 @@ public class UIManager : MonoBehaviour
 
         escalaOriginal = textoPuntuacion.transform.localScale;
     }
-    
     private void Update()
     {
-        if (playerReferencia != null && textoMunicion != null)
+        if (playerReferencia == null)
         {
-            ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
+            playerReferencia = FindFirstObjectByType<Player>();
+            if (playerReferencia == null) return;
         }
+
+        if (textoMunicion != null)
+        {
+            int actual = playerReferencia.currentAmmo;
+            int maximo = playerReferencia.stats.maxAmmo;
+            textoMunicion.text = $"Ammo: {actual}/{maximo}";
+        }
+    }
+    private void CrearTodasLasRanuras(int cantidad)
+    {
+        totalCerdos = cantidad;
+        cerdosProcesados = 0;
+        
+        foreach (GameObject ranura in ranurasCerdos)
+        {
+            if (ranura != null)
+                Destroy(ranura);
+        }
+        ranurasCerdos.Clear();
+        for (int i = 0; i < totalCerdos; i++)
+        {
+            GameObject nuevoCerdoHUD = Instantiate(prefabCerdoNormal, contenedorCerdos);
+            ranurasCerdos.Add(nuevoCerdoHUD);
+        }
+        
+        StartCoroutine(AnimarAparicionRanuras());
+    }
+    
+    private IEnumerator AnimarAparicionRanuras()
+    {
+        for (int i = 0; i < ranurasCerdos.Count; i++)
+        {
+            if (ranurasCerdos[i] != null)
+            {
+                Vector3 escalaOriginal = ranurasCerdos[i].transform.localScale;
+                ranurasCerdos[i].transform.localScale = Vector3.zero;
+                
+                float tiempo = 0;
+                while (tiempo < 0.1f)
+                {
+                    tiempo += Time.deltaTime;
+                    float t = tiempo / 0.1f;
+                    ranurasCerdos[i].transform.localScale = Vector3.Lerp(Vector3.zero, escalaOriginal, t);
+                    yield return null;
+                }
+                ranurasCerdos[i].transform.localScale = escalaOriginal;
+            }
+            yield return new WaitForSeconds(0.03f);
+        }
+    }
+    
+    public void MarcarCerdoComoCazado(int numeroDeCerdo)
+    {
+        if (numeroDeCerdo >= 0 && numeroDeCerdo < ranurasCerdos.Count)
+        {
+            Transform ranuraActual = ranurasCerdos[numeroDeCerdo].transform;
+            Vector3 posicion = ranuraActual.position;
+            Quaternion rotacion = ranuraActual.rotation;
+            Transform padre = ranuraActual.parent;
+            
+            Destroy(ranurasCerdos[numeroDeCerdo]);
+            
+            GameObject nuevaRanura = Instantiate(prefabCerdoCazado, posicion, rotacion, padre);
+            
+            ranurasCerdos[numeroDeCerdo] = nuevaRanura;
+            
+            StartCoroutine(EfectoDestello(nuevaRanura.GetComponent<Image>()));
+        }
+    }
+    
+    public void MarcarCerdoComoEscapado(int numeroDeCerdo)
+    {
+        if (numeroDeCerdo >= 0 && numeroDeCerdo < ranurasCerdos.Count)
+        {
+            Transform ranuraActual = ranurasCerdos[numeroDeCerdo].transform;
+            Vector3 posicion = ranuraActual.position;
+            Quaternion rotacion = ranuraActual.rotation;
+            Transform padre = ranuraActual.parent;
+            
+            Destroy(ranurasCerdos[numeroDeCerdo]);
+            
+            GameObject nuevaRanura = Instantiate(prefabCerdoEscapado, posicion, rotacion, padre);
+            ranurasCerdos[numeroDeCerdo] = nuevaRanura;
+            
+            StartCoroutine(EfectoDestello(nuevaRanura.GetComponent<Image>()));
+        }
+    }
+    
+    private IEnumerator EfectoDestello(Image imagen)
+    {
+        if (imagen == null) yield break;
+        
+        Color colorOriginal = imagen.color;
+        imagen.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        imagen.color = colorOriginal;
+    }
+    
+    public void ResetearRanuras()
+    {
+        CrearTodasLasRanuras(totalCerdos);
+    }
+    
+    public void OnCerdoSpawned(int numeroDeCerdo)
+    {
+        if (numeroDeCerdo >= 0 && numeroDeCerdo < ranurasCerdos.Count)
+        {
+            StartCoroutine(ResaltarRanura(ranurasCerdos[numeroDeCerdo]));
+        }
+    }
+    
+    private IEnumerator ResaltarRanura(GameObject ranura)
+    {
+        if (ranura == null) yield break;
+        
+        Image img = ranura.GetComponent<Image>();
+        if (img == null) yield break;
+        
+        Color colorOriginal = img.color;
+        img.color = Color.yellow;
+        
+        Vector3 escalaOriginal = ranura.transform.localScale;
+        ranura.transform.localScale = escalaOriginal * 1.3f;
+        
+        yield return new WaitForSeconds(0.15f);
+        
+        img.color = colorOriginal;
+        ranura.transform.localScale = escalaOriginal;
     }
     
     private void InicializarTextos()
@@ -77,9 +223,10 @@ public class UIManager : MonoBehaviour
             if (textoPuntuacion != null) textoPuntuacion.text = "Points: 0";
         }
         
-        if (playerReferencia != null && textoMunicion != null)
+        if (textoPuntuacion != null)
         {
-            ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
+            textoPuntuacion.color = colorNormalPuntuacion;
+            textoPuntuacion.transform.localScale = Vector3.one;
         }
     }
     
@@ -117,7 +264,7 @@ public class UIManager : MonoBehaviour
     
     private void ActualizarTextoPuntuacion(int puntos)
     {
-        if (textoPuntuacion != null)
+        if (textoPuntuacion != null && !efectoEnProgreso) 
         {
             textoPuntuacion.text = $"Points: {puntos}";
         }
@@ -136,27 +283,35 @@ public class UIManager : MonoBehaviour
         if (textoPuntuacion == null) return;
         
         if (efectoPuntuacionActual != null)
+        {
             StopCoroutine(efectoPuntuacionActual);
+            textoPuntuacion.color = colorNormalPuntuacion;
+            textoPuntuacion.transform.localScale = Vector3.one;
+            efectoEnProgreso = false;
+        }
         
         efectoPuntuacionActual = StartCoroutine(EfectoSumarPuntos(puntosSumados));
     }
     
     private IEnumerator EfectoSumarPuntos(int puntos)
     {
+        efectoEnProgreso = true;
+        
+        int puntajeActual = ScoreManager.Instance != null ? ScoreManager.Instance.GetPuntuacion() : 0;
+        
         textoPuntuacion.color = colorAlSumarPuntos;
         textoPuntuacion.text = $"+{puntos}!";
-        
-        textoPuntuacion.transform.localScale = escalaOriginal * 1.3f;
+        textoPuntuacion.transform.localScale = Vector3.one * 1.3f;
         
         yield return new WaitForSeconds(duracionEfectoColor);
         
         textoPuntuacion.color = colorNormalPuntuacion;
-        textoPuntuacion.transform.localScale = escalaOriginal;
+        textoPuntuacion.transform.localScale = Vector3.one;
         
-        if (ScoreManager.Instance != null)
-        {
-            ActualizarTextoPuntuacion(ScoreManager.Instance.GetPuntuacion());
-        }
+        textoPuntuacion.text = $"Points: {puntajeActual}";
+        
+        efectoEnProgreso = false;
+        efectoPuntuacionActual = null;
     }
     
     private void MostrarPantallaFinJuego(bool victoria)

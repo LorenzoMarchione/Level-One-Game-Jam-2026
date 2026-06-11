@@ -1,172 +1,145 @@
 fileFormatVersion: 2
-guid: fe7645e3e6b7f6547939c875fe375697
+guid: 039dec67c37487b41a5062f37e6104e5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3414963050774899787
-    second: stars1_0
+      213: 3512312157413079404
+    second: stars2_0
   - first:
-      213: 2549312558091399486
-    second: stars1_1
+      213: 1850006004481012137
+    second: stars2_1
   - first:
-      213: -7542546070418757605
-    second: stars1_2
+      213: 5540390692706208714
+    second: stars2_2
   - first:
-      213: -8239894359517544501
-    second: stars1_3
+      213: 7988532613371542907
+    second: stars2_3
   - first:
-      213: 6942638631837497544
-    second: stars1_4
+      213: 449110394830395215
+    second: stars2_4
   - first:
-      213: -4057819081368327366
-    second: stars1_5
+      213: -4190780643323664183
+    second: stars2_5
   - first:
-      213: -3262165573484290293
-    second: stars1_6
+      213: 4682578272346528792
+    second: stars2_6
   - first:
-      213: -5468213549647983174
-    second: stars1_7
+      213: 8945697751719696611
+    second: stars2_7
   - first:
-      213: -7341312662689454189
-    second: stars1_8
+      213: 2298403866563676199
+    second: stars2_8
   - first:
-      213: -3783821653983983534
-    second: stars1_9
+      213: 1799683413355793926
+    second: stars2_9
   - first:
-      213: 702493046711085696
-    second: stars1_10
+      213: -9206363541526165268
+    second: stars2_10
   - first:
-      213: -6032629976281083774
-    second: stars1_11
+      213: 4779926853705077931
+    second: stars2_11
   - first:
-      213: -2672838517095496722
-    second: stars1_12
+      213: 5535568200856455376
+    second: stars2_12
   - first:
-      213: -7547279843122861055
-    second: stars1_13
+      213: 812157022300128393
+    second: stars2_13
   - first:
-      213: -6351360545486355501
-    second: stars1_14
+      213: 8640545186508501421
+    second: stars2_14
   - first:
-      213: 9042203775765093619
-    second: stars1_15
+      213: 4852022603679780914
+    second: stars2_15
   - first:
-      213: -602545494426820725
-    second: stars1_16
+      213: 9044081778394805811
+    second: stars2_16
   - first:
-      213: -7449047813965920933
-    second: stars1_17
+      213: 4628280543549989338
+    second: stars2_17
   - first:
-      213: -1698952625088270562
-    second: stars1_18
+      213: -392542136248717587
+    second: stars2_18
   - first:
-      213: -3184571938011740329
-    second: stars1_19
+      213: 5738065585300751854
+    second: stars2_19
   - first:
-      213: 3993816454237097212
-    second: stars1_20
+      213: 3657312469596554255
+    second: stars2_20
   - first:
-      213: 2210555655313776106
-    second: stars1_21
+      213: -3268114925897029623
+    second: stars2_21
   - first:
-      213: -471966053233291171
-    second: stars1_22
+      213: -356130656801836045
+    second: stars2_22
   - first:
-      213: 5996242043448719322
-    second: stars1_23
+      213: 7339999481806764819
+    second: stars2_23
   - first:
-      213: 1781542102664590627
-    second: stars1_24
+      213: -8566027782638499311
+    second: stars2_24
   - first:
-      213: -8134512649658611470
-    second: stars1_25
+      213: -1535339431612165502
+    second: stars2_25
   - first:
-      213: 3492147315841912400
-    second: stars1_26
+      213: -146628659981159671
+    second: stars2_26
   - first:
-      213: -5821849439486643237
-    second: stars1_27
+      213: 6885278618918164313
+    second: stars2_27
   - first:
-      213: 6380266540358224176
-    second: stars1_28
+      213: -6211521681036194791
+    second: stars2_28
   - first:
-      213: 3883016656294255894
-    second: stars1_29
+      213: 7976812253972691950
+    second: stars2_29
   - first:
-      213: -4550870430534949606
-    second: stars1_30
+      213: -8289321430987417925
+    second: stars2_30
   - first:
-      213: 1422419837641470288
-    second: stars1_31
+      213: -5573071322074437435
+    second: stars2_31
   - first:
-      213: -8054625945986798561
-    second: stars1_32
+      213: 7176454787757885173
+    second: stars2_32
   - first:
-      213: -2424498430381913288
-    second: stars1_33
+      213: -2040144883839976461
+    second: stars2_33
   - first:
-      213: -5175871925028175220
-    second: stars1_34
+      213: 5542026599462648483
+    second: stars2_34
   - first:
-      213: -1047968051941035679
-    second: stars1_35
+      213: -6351237126845429773
+    second: stars2_35
   - first:
-      213: 2520320386399516774
-    second: stars1_36
+      213: -8927302485924171545
+    second: stars2_36
   - first:
-      213: 2114267324637606103
-    second: stars1_37
+      213: -6034302184604140403
+    second: stars2_37
   - first:
-      213: -8708808677026758067
-    second: stars1_38
+      213: 7983598076156120364
+    second: stars2_38
   - first:
-      213: -4646751136146169500
-    second: stars1_39
+      213: 907255263177196613
+    second: stars2_39
   - first:
-      213: 6595090387403379347
-    second: stars1_40
+      213: 1212697451314837840
+    second: stars2_40
   - first:
-      213: 2196873333923317633
-    second: stars1_41
+      213: -993879096200636425
+    second: stars2_41
   - first:
-      213: -2448956280437886379
-    second: stars1_42
+      213: -7298293818739299172
+    second: stars2_42
   - first:
-      213: -6704932026105734920
-    second: stars1_43
+      213: 6304648356973324370
+    second: stars2_43
   - first:
-      213: -2221711428839224779
-    second: stars1_44
+      213: 2511196629803071403
+    second: stars2_44
   - first:
-      213: 6610943835961645176
-    second: stars1_45
-  - first:
-      213: -4223159016226797587
-    second: stars1_46
-  - first:
-      213: 8633525302152104465
-    second: stars1_47
-  - first:
-      213: -7659944040898843793
-    second: stars1_48
-  - first:
-      213: 2995355616623545413
-    second: stars1_49
-  - first:
-      213: 2498727626491115986
-    second: stars1_50
-  - first:
-      213: 1122350354188042506
-    second: stars1_51
-  - first:
-      213: -7109107589952212951
-    second: stars1_52
-  - first:
-      213: -2916886246708476966
-    second: stars1_53
-  - first:
-      213: -6768998834260768940
-    second: stars1_54
+      213: 223106518278421754
+    second: stars2_45
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -262,7 +235,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stars1_0
+      name: stars2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -277,8 +250,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b35a75d23d9b90d0800000000000000
-      internalID: -3414963050774899787
+      spriteID: c6974e25c4d3eb030800000000000000
+      internalID: 3512312157413079404
       vertices: []
       indices: 
       edges: []
@@ -287,7 +260,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5b0f72c39d7f6c8489eef72d46c9f936
+    spriteID: 66d9a63dfc3ec354b9bb25d2ad8a6a2a
     internalID: 0
     vertices: []
     indices: 
@@ -299,7 +272,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1920.0,"y":1080.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      stars1_0: -3414963050774899787
+      stars2_0: 3512312157413079404
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

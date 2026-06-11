@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class UIManager : MonoBehaviour
     
     private Coroutine efectoPuntuacionActual;
     private Player playerReferencia;
+
+    private Vector3 escalaOriginal;
     
     private void Start()
     {
@@ -33,6 +36,8 @@ public class UIManager : MonoBehaviour
         {
             ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
         }
+
+        escalaOriginal = textoPuntuacion.transform.localScale;
     }
     
     private void Update()
@@ -59,8 +64,8 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (textoCazados != null) textoCazados.text = "Cazados: 0/20";
-            if (textoEscapados != null) textoEscapados.text = "Escapados: 0/5";
+            if (textoCazados != null) textoCazados.text = "Hunted: 0/20";
+            if (textoEscapados != null) textoEscapados.text = "Escaped: 0/5";
         }
         
         if (ScoreManager.Instance != null)
@@ -69,7 +74,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (textoPuntuacion != null) textoPuntuacion.text = "Puntos: 0";
+            if (textoPuntuacion != null) textoPuntuacion.text = "Points: 0";
         }
         
         if (playerReferencia != null && textoMunicion != null)
@@ -98,7 +103,7 @@ public class UIManager : MonoBehaviour
     {
         if (textoCazados != null)
         {
-            textoCazados.text = $"Cazados: {actual}/{requerido}";
+            textoCazados.text = $"Hunted: {actual}/{requerido}";
         }
     }
     
@@ -106,7 +111,7 @@ public class UIManager : MonoBehaviour
     {
         if (textoEscapados != null)
         {
-            textoEscapados.text = $"Escapados: {actual}/{maximo}";
+            textoEscapados.text = $"Escaped: {actual}/{maximo}";
         }
     }
     
@@ -114,7 +119,7 @@ public class UIManager : MonoBehaviour
     {
         if (textoPuntuacion != null)
         {
-            textoPuntuacion.text = $"Puntos: {puntos}";
+            textoPuntuacion.text = $"Points: {puntos}";
         }
     }
     
@@ -122,7 +127,7 @@ public class UIManager : MonoBehaviour
     {
         if (textoMunicion != null)
         {
-            textoMunicion.text = $"Munición: {actual}/{maximo}";
+            textoMunicion.text = $"Ammo: {actual}/{maximo}";
         }
     }
     
@@ -141,7 +146,6 @@ public class UIManager : MonoBehaviour
         textoPuntuacion.color = colorAlSumarPuntos;
         textoPuntuacion.text = $"+{puntos}!";
         
-        Vector3 escalaOriginal = textoPuntuacion.transform.localScale;
         textoPuntuacion.transform.localScale = escalaOriginal * 1.3f;
         
         yield return new WaitForSeconds(duracionEfectoColor);

@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoCazados;  
     [SerializeField] private TextMeshProUGUI textoEscapados;
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
+    [SerializeField] private TextMeshProUGUI textoMunicion;
     
     [Header("Efectos Visuales")]
     [SerializeField] private Color colorNormalPuntuacion = Color.white;
@@ -20,17 +21,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private string LoseScene = "LoseScene";
     
     private Coroutine efectoPuntuacionActual;
+    private Player playerReferencia;
     
     private void Start()
     {
         InicializarTextos();
-        
         SuscribirseEventos();
+        
+        playerReferencia = FindFirstObjectByType<Player>();
+        if (playerReferencia != null)
+        {
+            ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
+        }
+    }
+    
+    private void Update()
+    {
+        if (playerReferencia != null && textoMunicion != null)
+        {
+            ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
+        }
     }
     
     private void InicializarTextos()
     {
-        
         if (GameManager.Instance != null)
         {
             ActualizarTextoCazados(
@@ -45,8 +59,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("GameManager.Instance es NULL - Textos de cazados/escapados no actualizados");
-            
             if (textoCazados != null) textoCazados.text = "Cazados: 0/20";
             if (textoEscapados != null) textoEscapados.text = "Escapados: 0/5";
         }
@@ -57,8 +69,12 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("ScoreManager.Instance es NULL - Texto de puntuación no actualizado");
             if (textoPuntuacion != null) textoPuntuacion.text = "Puntos: 0";
+        }
+        
+        if (playerReferencia != null && textoMunicion != null)
+        {
+            ActualizarTextoMunicion(playerReferencia.currentAmmo, playerReferencia.stats.maxAmmo);
         }
     }
     
@@ -102,6 +118,14 @@ public class UIManager : MonoBehaviour
         }
     }
     
+    private void ActualizarTextoMunicion(int actual, int maximo)
+    {
+        if (textoMunicion != null)
+        {
+            textoMunicion.text = $"Munición: {actual}/{maximo}";
+        }
+    }
+    
     private void ActivarEfectoPuntuacion(int puntosSumados)
     {
         if (textoPuntuacion == null) return;
@@ -114,8 +138,6 @@ public class UIManager : MonoBehaviour
     
     private IEnumerator EfectoSumarPuntos(int puntos)
     {
-        string textoOriginal = textoPuntuacion.text;
-        
         textoPuntuacion.color = colorAlSumarPuntos;
         textoPuntuacion.text = $"+{puntos}!";
         

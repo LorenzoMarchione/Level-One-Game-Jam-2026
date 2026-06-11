@@ -29,4 +29,10 @@ public class Crosshair : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         transform.localScale = originalScale;
     }
+
+    public void AumentarTamano(float multiplicador)
+    {
+        originalScale *= multiplicador;
+        transform.localScale = originalScale;
+    }
 }

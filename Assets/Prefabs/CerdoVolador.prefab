@@ -57,8 +57,8 @@ MonoBehaviour:
   suavizadoCambioDireccion: 8
   puntosMinimos: 10
   puntosMaximos: 30
-  prefabRecompensa: {fileID: 0}
-  probabilidadSoltarRecompensa: 0.1
+  prefabRecompensa: {fileID: 2259056162518765217, guid: bce6623c7079bc34c92205d7900aa923, type: 3}
+  probabilidadSoltarRecompensa: 0.25
   margenSuperiorEscape: 1
   margenInferiorPermitido: 0.5
   audioSource: {fileID: 5895561259132128749}

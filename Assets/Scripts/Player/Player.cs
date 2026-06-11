@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +21,12 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
+
+        if (stats == null)
+        {
+            stats = new PlayerStats();
+        }
+
         currentAmmo = stats.maxAmmo;
     }
 
@@ -32,7 +37,7 @@ public class Player : MonoBehaviour
 
     void HandleInput()
     {
-        if  (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
@@ -45,11 +50,15 @@ public class Player : MonoBehaviour
 
     void Shoot()
     {
-        if  (isReloading)
-        return;
+        if (isReloading)
+        {
+            return;
+        }
 
         if (Time.time < nextShotTime)
-        return;
+        {
+            return;
+        }
 
         if (currentAmmo <= 0)
         {
@@ -57,41 +66,143 @@ public class Player : MonoBehaviour
             StartReload();
             return;
         }
-        anim.Play("Shot");
-        shotSound.Play();
-        currentAmmo --;
-        nextShotTime = Time.time + (1f / stats.fireRate);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(mousePosition.position, stats.hitRadius, pigLayer);
-        foreach(Collider2D hit in hits) 
+
+        if (anim != null)
         {
-            if (hit != null)
-            {
-                CerdoVolador pig = hit.GetComponent<CerdoVolador>();
-                if (pig != null)
-                {
-                    pig.RecibirDisparo(stats.damage);
-                }
-            }
+            anim.Play("Shot");
         }
 
+        if (shotSound != null)
+        {
+            shotSound.Play();
+        }
+
+        if (crosshair != null)
+        {
+            StartCoroutine(crosshair.ShootEffect());
+        }
+
+        currentAmmo--;
+        nextShotTime = Time.time + (1f / stats.fireRate);
+
+        // CAMBIO IMPORTANTE:
+        // Antes se dañaban todos los cerdos dentro del radio de disparo.
+        // Ahora se revisa qué objetos hay en el radio y se elige uno solo:
+        // el objetivo más cercano al centro de la mira.
+        RevisarImpacto();
 
         Debug.Log("Shot");
     }
 
+    private void RevisarImpacto()
+    {
+        if (mousePosition == null)
+        {
+            Debug.LogWarning("Falta asignar mousePosition en el Player.");
+            return;
+        }
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            mousePosition.position,
+            stats.hitRadius,
+            pigLayer
+        );
+
+        if (hits.Length == 0)
+        {
+            return;
+        }
+
+        Component objetivoElegido = null;
+        float menorDistancia = Mathf.Infinity;
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit == null)
+            {
+                continue;
+            }
+
+            // CAMBIO IMPORTANTE:
+            // Ahora el disparo puede detectar recompensas además de cerdos.
+            RecompensaEstadistica recompensa = hit.GetComponentInParent<RecompensaEstadistica>();
+            CerdoVolador cerdo = hit.GetComponentInParent<CerdoVolador>();
+
+            Component candidato = null;
+
+            if (recompensa != null)
+            {
+                candidato = recompensa;
+            }
+            else if (cerdo != null && !cerdo.yaFinalizo)
+            {
+                candidato = cerdo;
+            }
+
+            if (candidato == null)
+            {
+                continue;
+            }
+
+            float distancia = Vector2.Distance(
+                mousePosition.position,
+                candidato.transform.position
+            );
+
+            if (distancia < menorDistancia)
+            {
+                menorDistancia = distancia;
+                objetivoElegido = candidato;
+            }
+        }
+
+        if (objetivoElegido == null)
+        {
+            return;
+        }
+
+        // CAMBIO IMPORTANTE:
+        // Si el objetivo elegido es una recompensa, se aplica la mejora.
+        RecompensaEstadistica recompensaElegida = objetivoElegido as RecompensaEstadistica;
+
+        if (recompensaElegida != null)
+        {
+            recompensaElegida.RecibirDisparo(this);
+            return;
+        }
+
+        // CAMBIO IMPORTANTE:
+        // Si el objetivo elegido es un cerdo, recibe daño normalmente.
+        CerdoVolador cerdoElegido = objetivoElegido as CerdoVolador;
+
+        if (cerdoElegido != null)
+        {
+            cerdoElegido.RecibirDisparo(stats.damage);
+        }
+    }
 
     public void OnDrawGizmosSelected()
     {
+        if (mousePosition == null || stats == null)
+        {
+            return;
+        }
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(mousePosition.position, stats.hitRadius);
     }
 
     void StartReload()
     {
-        if  (isReloading)
-        return;
+        if (isReloading)
+        {
+            return;
+        }
 
         if (currentAmmo == stats.maxAmmo)
-        return;
+        {
+            return;
+        }
 
         StartCoroutine(ReloadRoutine());
     }
@@ -100,13 +211,21 @@ public class Player : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("Reloading...");
-        reloadSound.Play();
+
+        if (reloadSound != null)
+        {
+            reloadSound.Play();
+        }
+
         yield return new WaitForSeconds(stats.reloadTime);
+
         currentAmmo = stats.maxAmmo;
         isReloading = false;
         Debug.Log("Full reload");
-        reloadSound.Stop();
+
+        if (reloadSound != null)
+        {
+            reloadSound.Stop();
+        }
     }
-
 }
-

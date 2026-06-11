@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool juegoPausado = false;
 
     // Contadores internos
+    
     private int cerdosCazados = 0;
     private int cerdosEscapados = 0;
     private int totalCerdosEnNivel = 20;
